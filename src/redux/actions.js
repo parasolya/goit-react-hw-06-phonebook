@@ -1,4 +1,4 @@
-export const nameAction = value => ({ type: 'name', payload: value });
-export const numberAction = value => ({ type: 'number', payload: value });
-export const filterAction = value => ({ type: 'filter', payload: value });
-export const contactsAction = value => ({ type: 'contacts', payload: value });
+import { createAction } from "@reduxjs/toolkit";
+
+export const filterAction = createAction('filter');
+export const contactsAction = createAction('contacts');

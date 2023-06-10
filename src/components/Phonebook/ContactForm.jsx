@@ -1,19 +1,18 @@
+import { useState } from 'react';
 import css from './Phonebook.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { nameAction, numberAction } from '../../redux/actions';
 
 function ContactForm({ onSubmit }) {
-  const { name, number } = useSelector(state => state.form);
-  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleInputChange = e => {
     const { name, value } = e.currentTarget;
     switch (name) {
       case 'name':
-        dispatch(nameAction(value));
+        setName(value);
         break;
       case 'number':
-        dispatch(numberAction(value));
+        setNumber(value);
         break;
       default:
         return;
@@ -26,10 +25,10 @@ function ContactForm({ onSubmit }) {
       name,
       number,
     };
-
+    console.log(contact);
     onSubmit(contact);
-    dispatch(nameAction(''));
-    dispatch(numberAction(''));
+    setName('');
+    setNumber('');
   };
 
   return (

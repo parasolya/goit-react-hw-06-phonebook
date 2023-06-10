@@ -1,18 +1,14 @@
-import { initialState } from '../initialState';
+// import { createReducer } from '@reduxjs/toolkit';
+// import { initialState } from '../initialState';
+// import { nameAction, numberAction } from 'redux/actions';
 
-export const formReducer = (state = initialState.form, action) => {
-    switch (action.type) {
-        case 'name':
-            return {
-                ...state,
-                name: action.payload,
-            }
-        case 'number':
-            return {
-                ...state,
-                number: action.payload,
-            }
-            default:
-                return state
-        }
-    };
+// export const formReducer = createReducer(initialState.form, {
+//   [nameAction]: (state, action) => ({
+//     ...state,
+//     name: action.payload,
+//   }),
+//   [numberAction]: (state, action) => ({
+//     ...state,
+//     number: action.payload,
+//   }),
+// });

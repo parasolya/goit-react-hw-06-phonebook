@@ -1,22 +1,11 @@
+import { createReducer } from '@reduxjs/toolkit';
 import { initialState } from '../initialState';
+import { contactsAction } from 'redux/actions';
 
-export const bookReducer = (state = initialState.book, action) => {
-    switch (action.type) {
-        case 'filter':
-        return {
-            ...state,
-           
-            filter: action.payload,
-            
-        }
-        case 'contacts':
-            return {
-                ...state,
-               
-                 contacts: action.payload,
-                
-            }
-        default:
-            return state
+export const bookReducer = createReducer(initialState, {
+        [contactsAction]: (state, action) => ({
+            ...state,               
+            contacts: action.payload,
+        })
 }
-};
+);
