@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import React from 'react';
 import ContactForm from './Phonebook/ContactForm';
 import { nanoid } from 'nanoid';
 import Filter from './Phonebook/Filter';
 import ContactList from './Phonebook/ContactList';
 import css from '././Phonebook/Phonebook.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { contactsAction, filterAction } from '../redux/actions';
 
 function App() {
-  const startContacts = [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ];
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem('contacts')) ?? startContacts
-  );
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useState([]
+  // () => JSON.parse(window.localStorage.getItem('contacts')) ?? startContacts
+  // );
+  // const [filter, setFilter] = useState('');
+  const { filter, contacts } = useSelector(state => state.book);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -24,7 +23,6 @@ function App() {
 
   const formSubmitHandler = data => {
     data.id = nanoid();
-
     const sameName = contacts.find(
       el => el.name.toLowerCase() === data.name.toLowerCase()
     );
@@ -35,12 +33,13 @@ function App() {
     );
     if (sameNumber)
       return alert(sameNumber.number + ' is already in contacts.');
-
-    setContacts([data, ...contacts]);
+    // setContacts([data, ...contacts]);
+    dispatch(contactsAction([data, ...contacts]));
   };
 
   const handleChangeFilter = e => {
-    setFilter(e.currentTarget.value);
+    // setFilter(e.currentTarget.value);
+    dispatch(filterAction(e.currentTarget.value));
   };
   const visibleContacts = () => {
     const visible = contacts.filter(contact =>
@@ -51,7 +50,8 @@ function App() {
 
   const deleteContacts = id => {
     const updateArray = contacts.filter(contact => contact.id !== id);
-    setContacts(updateArray);
+    // setContacts(updateArray);
+    dispatch(contactsAction(updateArray));
   };
 
   return (
